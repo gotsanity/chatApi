@@ -88,7 +88,7 @@ router.delete('/channel/:channelId', function(req, res, next) {
 
   saveData(req);
 
-  sendJsonResponse(res, 200, []);
+  sendJsonResponse(res, 200, { message: `successfully deleted ${channel}` });
 });
 
 module.exports = router;
