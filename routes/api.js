@@ -44,11 +44,15 @@ router.get('/channel/:channelId', function(req, res, next) {
 router.post('/channel/:channelId', function(req, res, next) {
   var channel = req.params.channelId;
 
+  if (!req.body.username || !req.body.message) {
+    sendJsonResponse(res, 400, { message: "malformed data, must be a single object with username and message fields" });
+  }
+
   if (!req.data[channel]) {
     req.data[channel] = [];
   }
 
-  var message = {
+  var newMessage = {
     username: req.body.username,
     message: req.body.message,
     id: uuid(),
@@ -56,11 +60,11 @@ router.post('/channel/:channelId', function(req, res, next) {
     updated_on: null
   }
 
-  req.data[channel].push(message);
+  req.data[channel].push(newMessage);
 
   saveData(req);
 
-  sendJsonResponse(res, 201, message);
+  sendJsonResponse(res, 201, newMessage);
 });
 
 router.patch('/channel/:channelId', function(req, res, next) {
