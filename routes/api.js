@@ -24,7 +24,7 @@ function saveData(req) {
 router.use(loadData);
 
 // get all channels
-router.get('/channel', function(req, res, next) {
+router.get('/', function(req, res, next) {
   if (!req.data) {
     sendJsonResponse(res, 500, { message: "channel not found" });
   }
@@ -33,7 +33,7 @@ router.get('/channel', function(req, res, next) {
 });
 
 // get channels by id
-router.get('/channel/:channelId', function(req, res, next) {
+router.get('/:channelId', function(req, res, next) {
   if (!req.data[req.params.channelId]) {
     sendJsonResponse(res, 500, { message: "channel not found" });
   }
@@ -41,7 +41,7 @@ router.get('/channel/:channelId', function(req, res, next) {
   sendJsonResponse(res, 200, req.data[req.params.channelId]);
 });
 
-router.post('/channel/:channelId', function(req, res, next) {
+router.post('/:channelId', function(req, res, next) {
   var channel = req.params.channelId;
 
   if (!req.body.username || !req.body.message) {
@@ -67,7 +67,7 @@ router.post('/channel/:channelId', function(req, res, next) {
   sendJsonResponse(res, 201, newMessage);
 });
 
-router.patch('/channel/:channelId', function(req, res, next) {
+router.patch('/:channelId', function(req, res, next) {
   var channel = req.params.channelId;
 
   if (!req.data[channel]) {
@@ -81,7 +81,7 @@ router.patch('/channel/:channelId', function(req, res, next) {
   sendJsonResponse(res, 200, req.data[channel]);
 });
 
-router.delete('/channel/:channelId', function(req, res, next) {
+router.delete('/:channelId', function(req, res, next) {
   var channel = req.params.channelId;
 
   if (!req.data[channel]) {
